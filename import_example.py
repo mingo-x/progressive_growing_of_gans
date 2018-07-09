@@ -4,6 +4,7 @@ import tensorflow as tf
 import PIL.Image
 import argparse
 import os
+import time
 
 parser = argparse.ArgumentParser(description='Inference demo')
 parser.add_argument(
@@ -24,7 +25,7 @@ def main():
 	    G, D, Gs = pickle.load(file)
 
 	# Generate latent vectors.
-	latents = np.random.RandomState(1000).randn(1000, *Gs.input_shapes[0][1:]) # 1000 random latents
+	latents = np.random.RandomState(int(time.time())).randn(50, *Gs.input_shapes[0][1:]) # 1000 random latents
 	# latents = latents[[477, 56, 83, 887, 583, 391, 86, 340, 341, 415]] # hand-picked top-10
 
 	# Generate dummy labels (not used by the official networks).
