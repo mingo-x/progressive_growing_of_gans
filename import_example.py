@@ -25,7 +25,7 @@ def main():
 
 	# Generate latent vectors.
 	latents = np.random.RandomState(1000).randn(1000, *Gs.input_shapes[0][1:]) # 1000 random latents
-	latents = latents[[477, 56, 83, 887, 583, 391, 86, 340, 341, 415]] # hand-picked top-10
+	# latents = latents[[477, 56, 83, 887, 583, 391, 86, 340, 341, 415]] # hand-picked top-10
 
 	# Generate dummy labels (not used by the official networks).
 	labels = np.zeros([latents.shape[0]] + Gs.input_shapes[1][1:])
@@ -45,6 +45,7 @@ def main():
 			break
 	# Save images as PNG.
 	for idx in range(images.shape[0]):
+		print("{}-th image".format(idx))
 		fname = os.path.join(path, '_gen{}.png'.format(idx))
 		PIL.Image.fromarray(images[idx], 'RGB').save(fname)
 
