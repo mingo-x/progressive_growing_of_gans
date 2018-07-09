@@ -32,7 +32,7 @@ def main():
 			break
 	randomizer = np.random.RandomState(int(time.time()))
 
-	for i in xrange(0, 50, 10):
+	for i in range(0, 50, 10):
 		# Generate latent vectors.
 		latents = randomizer.randn(10, *Gs.input_shapes[0][1:]) # 1000 random latents
 		# latents = latents[[477, 56, 83, 887, 583, 391, 86, 340, 341, 415]] # hand-picked top-10
@@ -49,7 +49,7 @@ def main():
 
 	
 		# Save images as PNG.
-		for idx in xrange(images.shape[0]):
+		for idx in range(images.shape[0]):
 			real_idx = i * 10 + idx
 			print("{}-th image".format(real_idx))
 			fname = os.path.join(path, '_gen{}.png'.format(real_idx))
