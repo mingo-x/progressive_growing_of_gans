@@ -30,10 +30,11 @@ def main():
 		if not os.path.exists(path):
 			os.system('mkdir -p {}'.format(path))
 			break
+	randomizer = np.random.RandomState(int(time.time()))
 
-	for i in range(50):
+	for i in xrange(0, 50, 10):
 		# Generate latent vectors.
-		latents = np.random.RandomState(int(time.time())).randn(1, *Gs.input_shapes[0][1:]) # 1000 random latents
+		latents = randomizer.randn(10, *Gs.input_shapes[0][1:]) # 1000 random latents
 		# latents = latents[[477, 56, 83, 887, 583, 391, 86, 340, 341, 415]] # hand-picked top-10
 
 		# Generate dummy labels (not used by the official networks).
@@ -48,9 +49,11 @@ def main():
 
 	
 		# Save images as PNG.
-		print("{}-th image".format(i))
-		fname = os.path.join(path, '_gen{}.png'.format(i))
-		PIL.Image.fromarray(images[0], 'RGB').save(fname)
+		for idx in xrange(images.shape[0]):
+			real_idx = i * 10 + idx
+			print("{}-th image".format(real_idx))
+			fname = os.path.join(path, '_gen{}.png'.format(real_idx))
+			PIL.Image.fromarray(images[idx], 'RGB').save(fname)
 
 
 if __name__ == '__main__':
