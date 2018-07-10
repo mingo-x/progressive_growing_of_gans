@@ -217,15 +217,12 @@ def train_progressive_gan(
         print("start with", cur_nimg)
         # Choose training parameters and configure training ops.
         sched = TrainingSchedule(cur_nimg, training_set, **config.sched)
-        print("sched done")
         training_set.configure(sched.minibatch, sched.lod)
         print("config done")
         if reset_opt_for_new_lod:
             if np.floor(sched.lod) != np.floor(prev_lod) or np.ceil(sched.lod) != np.ceil(prev_lod):
                 G_opt.reset_optimizer_state(); D_opt.reset_optimizer_state()
-            print("reset done")
         prev_lod = sched.lod
-        print("lod", sched.lod)
         # Run training ops.
         for repeat in range(minibatch_repeats):
             for _ in range(D_repeats):
@@ -233,7 +230,6 @@ def train_progressive_gan(
                 cur_nimg += sched.minibatch
             tfutil.run([G_train_op], {lod_in: sched.lod, lrate_in: sched.G_lrate, minibatch_in: sched.minibatch})
 
-        print("updated")
         # Perform maintenance tasks once per tick.
         done = (cur_nimg >= total_kimg * 1000)
         if cur_nimg >= tick_start_nimg + sched.tick_kimg * 1000 or done:
