@@ -224,12 +224,15 @@ def train_progressive_gan(
         prev_lod = sched.lod
         # Run training ops.
         for repeat in range(minibatch_repeats):
-            training_set.configure(sched.minibatch, 4)
             for _ in range(D_repeats):
+                training_set.configure(sched.minibatch, sched.lod)
                 tfutil.run([D_train_op, Gs_update_op], {lod_in: sched.lod, lrate_in: sched.D_lrate, minibatch_in: sched.minibatch})
                 cur_nimg += sched.minibatch
+                training_set.configure(sched.minibatch, 2)
+            training_set.configure(sched.minibatch, sched.lod)
             tfutil.run([G_train_op], {lod_in: sched.lod, lrate_in: sched.G_lrate, minibatch_in: sched.minibatch})
-            training_set.configure(sched.minibatch, 2)
+            training_set.configure(sched.minibatch, 4)
+            
 
         # Perform maintenance tasks once per tick.
         done = (cur_nimg >= total_kimg * 1000)
