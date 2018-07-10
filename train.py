@@ -217,10 +217,13 @@ def train_progressive_gan(
         print("start with", cur_nimg)
         # Choose training parameters and configure training ops.
         sched = TrainingSchedule(cur_nimg, training_set, **config.sched)
+        print("sched done")
         training_set.configure(sched.minibatch, sched.lod)
+        print("config done")
         if reset_opt_for_new_lod:
             if np.floor(sched.lod) != np.floor(prev_lod) or np.ceil(sched.lod) != np.ceil(prev_lod):
                 G_opt.reset_optimizer_state(); D_opt.reset_optimizer_state()
+            print("reset done")
         prev_lod = sched.lod
         print("lod", sched.lod)
         # Run training ops.
