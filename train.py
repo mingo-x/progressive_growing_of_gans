@@ -213,13 +213,14 @@ def train_progressive_gan(
     tick_start_time = time.time()
     train_start_time = tick_start_time - resume_time
     prev_lod = -1.0
+    for x in range(5, 0, -1):
+        training_set.configure(128, x)
+        training_set.get_random_labels_tf(128)
     while cur_nimg < total_kimg * 1000:
         print("start with", cur_nimg)
         # Choose training parameters and configure training ops.
         sched = TrainingSchedule(cur_nimg, training_set, **config.sched)
         training_set.configure(sched.minibatch, sched.lod)
-        if cur_nimg != 0:
-            training_set.configure(sched.minibatch, 4)
         if reset_opt_for_new_lod:
             if np.floor(sched.lod) != np.floor(prev_lod) or np.ceil(sched.lod) != np.ceil(prev_lod):
                 G_opt.reset_optimizer_state(); D_opt.reset_optimizer_state()
