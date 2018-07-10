@@ -50,7 +50,7 @@ def main():
 	
 		# Save images as PNG.
 		for idx in range(images.shape[0]):
-			real_idx = i * 10 + idx
+			real_idx = i + idx
 			print("{}-th image".format(real_idx))
 			fname = os.path.join(path, '_gen{}.png'.format(real_idx))
 			PIL.Image.fromarray(images[idx], 'RGB').save(fname)
