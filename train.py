@@ -213,10 +213,6 @@ def train_progressive_gan(
     tick_start_time = time.time()
     train_start_time = tick_start_time - resume_time
     prev_lod = -1.0
-    for x in range(5, 1, -1):
-        print("test", x)
-        training_set.configure(128, x)
-    exit()
     while cur_nimg < total_kimg * 1000:
         print("start with", cur_nimg)
         # Choose training parameters and configure training ops.
