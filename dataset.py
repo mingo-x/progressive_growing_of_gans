@@ -136,8 +136,10 @@ class TFRecordDataset:
         lod = int(np.floor(lod))
         assert minibatch_size >= 1 and lod in self._tf_datasets
         if self._cur_minibatch != minibatch_size or self._cur_lod != lod:
-            initializer = self._tf_iterator.make_initializer(self._tf_datasets[lod])
-            print("get")
+            dset = self._tf_datasets[lod]
+            print("data set get")
+            initializer = self._tf_iterator.make_initializer(dset)
+            print("get", lod)
             tfutil.run(initializer, {self._tf_minibatch_in: minibatch_size})
             # self._tf_init_ops[lod].run({self._tf_minibatch_in: minibatch_size})
             print(self._cur_lod, lod)
