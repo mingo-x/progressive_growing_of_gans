@@ -123,7 +123,7 @@ class TFRecordDataset:
                 if shuffle_mb > 0:
                     dset = dset.shuffle(((shuffle_mb << 20) - 1) // bytes_per_item + 1)
                 if repeat:
-                    dset = dset.repeat(2)
+                    dset = dset.repeat()
                 if prefetch_mb > 0:
                     dset = dset.prefetch(((prefetch_mb << 20) - 1) // bytes_per_item + 1)
                 dset = dset.batch(self._tf_minibatch_in)
@@ -137,9 +137,7 @@ class TFRecordDataset:
         assert minibatch_size >= 1 and lod in self._tf_datasets
         if self._cur_minibatch != minibatch_size or self._cur_lod != lod:
             dset = self._tf_datasets[lod]
-            print("data set get")
             initializer = self._tf_iterator.make_initializer(dset)
-            print("get", lod)
             tfutil.run(initializer, {self._tf_minibatch_in: minibatch_size})
             # self._tf_init_ops[lod].run({self._tf_minibatch_in: minibatch_size})
             print(self._cur_lod, lod)
