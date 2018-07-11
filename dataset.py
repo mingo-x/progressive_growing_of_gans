@@ -41,7 +41,7 @@ class TFRecordDataset:
         shuffle_mb      = 4096,     # Shuffle data within specified window (megabytes), 0 = disable shuffling.
         prefetch_mb     = 2048,     # Amount of data to prefetch (megabytes), 0 = disable prefetching.
         buffer_mb       = 256,      # Read buffer size (megabytes).
-        num_threads     = 8):       # Number of concurrent threads.
+        num_threads     = 2):       # Number of concurrent threads.
 
         self.tfrecord_dir       = tfrecord_dir
         self.resolution         = None
@@ -136,10 +136,10 @@ class TFRecordDataset:
         lod = int(np.floor(lod))
         assert minibatch_size >= 1 and lod in self._tf_datasets
         if self._cur_minibatch != minibatch_size or self._cur_lod != lod:
-            dset = self._tf_datasets[lod]
-            initializer = self._tf_iterator.make_initializer(dset)
-            tfutil.run(initializer, {self._tf_minibatch_in: minibatch_size})
-            # self._tf_init_ops[lod].run({self._tf_minibatch_in: minibatch_size})
+            # dset = self._tf_datasets[lod]
+            # initializer = self._tf_iterator.make_initializer(dset)
+            # tfutil.run(initializer, {self._tf_minibatch_in: minibatch_size})
+            self._tf_init_ops[lod].run({self._tf_minibatch_in: minibatch_size})
             print(self._cur_lod, lod)
             self._cur_minibatch = minibatch_size
             self._cur_lod = lod
