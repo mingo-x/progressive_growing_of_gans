@@ -213,8 +213,6 @@ def train_progressive_gan(
     tick_start_time = time.time()
     train_start_time = tick_start_time - resume_time
     prev_lod = -1.0
-    training_set.get_minibatch_np(128, 5)
-    training_set.configure(sched.minibatch, 2)
     while cur_nimg < total_kimg * 1000:
         print("start with", cur_nimg)
         # Choose training parameters and configure training ops.
@@ -227,11 +225,8 @@ def train_progressive_gan(
         # Run training ops.
         for repeat in range(minibatch_repeats):
             for _ in range(D_repeats):
-                training_set.configure(sched.minibatch, sched.lod)
                 tfutil.run([D_train_op, Gs_update_op], {lod_in: sched.lod, lrate_in: sched.D_lrate, minibatch_in: sched.minibatch})
                 cur_nimg += sched.minibatch
-                training_set.configure(sched.minibatch, 2)
-            training_set.configure(sched.minibatch, sched.lod)
             tfutil.run([G_train_op], {lod_in: sched.lod, lrate_in: sched.G_lrate, minibatch_in: sched.minibatch})
             
 
