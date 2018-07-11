@@ -231,7 +231,6 @@ def train_progressive_gan(
                 training_set.configure(sched.minibatch, 2)
             training_set.configure(sched.minibatch, sched.lod)
             tfutil.run([G_train_op], {lod_in: sched.lod, lrate_in: sched.G_lrate, minibatch_in: sched.minibatch})
-            training_set.configure(sched.minibatch, 4)
             
 
         # Perform maintenance tasks once per tick.
