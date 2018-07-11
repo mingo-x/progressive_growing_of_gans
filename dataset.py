@@ -123,7 +123,7 @@ class TFRecordDataset:
                 if shuffle_mb > 0:
                     dset = dset.shuffle(((shuffle_mb << 20) - 1) // bytes_per_item + 1)
                 if repeat:
-                    dset = dset.repeat()
+                    dset = dset.repeat(1)
                 if prefetch_mb > 0:
                     dset = dset.prefetch(((prefetch_mb << 20) - 1) // bytes_per_item + 1)
                 dset = dset.batch(self._tf_minibatch_in)
