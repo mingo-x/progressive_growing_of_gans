@@ -229,7 +229,7 @@ def train_progressive_gan(
                 cur_nimg += sched.minibatch
             tfutil.run([G_train_op], {lod_in: sched.lod, lrate_in: sched.G_lrate, minibatch_in: sched.minibatch})
 
-        if cur_nimg // 10 > prev_nimg // 10:
+        if cur_nimg // 10000 > prev_nimg // 10000:
             print(cur_nimg)
         # Perform maintenance tasks once per tick.
         done = (cur_nimg >= total_kimg * 1000)
