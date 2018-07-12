@@ -49,6 +49,8 @@ D_loss      = EasyDict(func='loss.D_wgangp_acgan')          # Options for discri
 sched       = EasyDict()                                    # Options for train.TrainingSchedule.
 grid        = EasyDict(size='1080p', layout='random')       # Options for train.setup_snapshot_image_grid().
 
+# Resume training
+desc += '-resume'; train.resume_run_id = "001"; train.resume_kimg = 4627
 # Dataset (choose one).
 desc += '-celebahq';            dataset = EasyDict(tfrecord_dir='celebahq-tf', resolution=128); train.mirror_augment = True
 #desc += '-celeba';              dataset = EasyDict(tfrecord_dir='celeba'); train.mirror_augment = True
