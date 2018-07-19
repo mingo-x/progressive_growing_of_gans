@@ -9,7 +9,7 @@ import time
 parser = argparse.ArgumentParser(description='Inference demo')
 parser.add_argument(
     '--weights',
-    default='karras2018iclr-celebahq-1024x1024.pkl',
+    default='network-snapshot-000320.pkl',
     type=str,
     metavar='PATH',
     help='path to PyTorch state dict')
