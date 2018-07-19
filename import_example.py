@@ -9,7 +9,7 @@ import time
 parser = argparse.ArgumentParser(description='Inference demo')
 parser.add_argument(
     '--weights',
-    default='network-snapshot-000320.pkl',
+    default='network-snapshot-000641.pkl',
     type=str,
     metavar='PATH',
     help='path to PyTorch state dict')
@@ -26,7 +26,7 @@ def main():
 
 	 # create folder.
 	for i in range(1000):
-		path = 'repo/generate/try_{}'.format(i)
+		path = 'results/generate/try_{}'.format(i)
 		if not os.path.exists(path):
 			os.system('mkdir -p {}'.format(path))
 			break
