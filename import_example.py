@@ -30,7 +30,7 @@ def main():
 		if not os.path.exists(path):
 			os.system('mkdir -p {}'.format(path))
 			break
-	randomizer = np.random.RandomState(int(time.time()))
+	randomizer = np.random.RandomState(1000)
 
 	for i in range(0, 50, 10):
 		# Generate latent vectors.

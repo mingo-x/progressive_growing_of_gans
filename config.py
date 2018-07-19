@@ -50,7 +50,7 @@ sched       = EasyDict()                                    # Options for train.
 grid        = EasyDict(size='1080p', layout='random')       # Options for train.setup_snapshot_image_grid().
 
 # Resume training
-train.resume_run_id = "001"; train.resume_kimg = 4627.7
+train.resume_run_id = "007"; train.resume_kimg = 6008.1
 # Snapshot
 train.network_snapshot_ticks = 1
 # Dataset (choose one).
