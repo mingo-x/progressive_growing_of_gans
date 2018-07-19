@@ -18,7 +18,7 @@ class EasyDict(dict):
 #----------------------------------------------------------------------------
 # Paths.
 
-data_dir = '/srv/glusterfs/xieya/data'
+data_dir = '/srv/glusterfs/xieya/data-tf'
 result_dir = '/srv/glusterfs/xieya/results'
 
 #----------------------------------------------------------------------------
