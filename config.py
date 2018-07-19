@@ -50,11 +50,11 @@ sched       = EasyDict()                                    # Options for train.
 grid        = EasyDict(size='1080p', layout='random')       # Options for train.setup_snapshot_image_grid().
 
 # Resume training
-train.resume_run_id = "007"; train.resume_kimg = 6008.1
+# train.resume_run_id = "001"; train.resume_kimg = 4627.7
 # Snapshot
 train.network_snapshot_ticks = 1
 # Dataset (choose one).
-desc += '-celebahq';            dataset = EasyDict(tfrecord_dir='celebahq-tf', resolution=128); train.mirror_augment = True
+desc += '-celebahq';            dataset = EasyDict(tfrecord_dir='celebahq-tf', resolution=4); train.mirror_augment = True
 #desc += '-celeba';              dataset = EasyDict(tfrecord_dir='celeba'); train.mirror_augment = True
 #desc += '-cifar10';             dataset = EasyDict(tfrecord_dir='cifar10')
 #desc += '-cifar100';            dataset = EasyDict(tfrecord_dir='cifar100')
