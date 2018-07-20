@@ -1,7 +1,7 @@
 import pickle
 import numpy as np
 import tensorflow as tf
-import PIL.Image
+from PIL import Image
 import argparse
 import os
 
@@ -12,6 +12,10 @@ parser.add_argument(
     type=str,
     metavar='PATH',
     help='path to PyTorch state dict')
+parser.add_argument(
+    '--input_dir',
+    type=str,
+    metavar='PATH')
 
 
 
@@ -23,37 +27,15 @@ def main():
 	with open(args.weights, 'rb') as file:
 	    _, D, _ = pickle.load(file)
 
-	 # create folder.
-	for i in range(1000):
-		path = 'results/generate/try_{}'.format(i)
-		if not os.path.exists(path):
-			os.system('mkdir -p {}'.format(path))
-			break
-	randomizer = np.random.RandomState(1000)
-
-	for i in range(0, 50, 10):
-		# Generate latent vectors.
-		latents = randomizer.randn(10, *Gs.input_shapes[0][1:]) # 1000 random latents
-		# latents = latents[[477, 56, 83, 887, 583, 391, 86, 340, 341, 415]] # hand-picked top-10
+	for image_name in os.listdir(args.input_dir):
+		image = Image.open(os.path.join(args.input_dir, image_name))
+		image_np = np.array(image.getdata(), np.uint8).reshape(1, image.size[1], image.size[0], 3)
 
 		# Generate dummy labels (not used by the official networks).
-		labels = np.zeros([latents.shape[0]] + Gs.input_shapes[1][1:])
+		label = np.zeros([image_np.shape[0]] + D.input_shapes[1][1:])
 
-		# Run the generator to produce a set of images.
-		images = Gs.run(latents, labels)
-
-		# Convert images to PIL-compatible format.
-		images = np.clip(np.rint((images + 1.0) / 2.0 * 255.0), 0.0, 255.0).astype(np.uint8) # [-1,1] => [0,255]
-		images = images.transpose(0, 2, 3, 1) # NCHW => NHWC
-
-	
-		# Save images as PNG.
-		for idx in range(images.shape[0]):
-			real_idx = i + idx
-			print("{}-th image".format(real_idx))
-			fname = os.path.join(path, '_gen{}.png'.format(real_idx))
-			PIL.Image.fromarray(images[idx], 'RGB').save(fname)
-
+		score = D.run(image_np, label)
+		print(score)
 
 if __name__ == '__main__':
 	main()
