@@ -9,6 +9,9 @@
 # Convenience class that behaves exactly like dict(), but allows accessing
 # the keys and values using the attribute syntax, i.e., "mydict.key = value".
 
+import time
+
+
 class EasyDict(dict):
     def __init__(self, *args, **kwargs): super().__init__(*args, **kwargs)
     def __getattr__(self, name): return self[name]
@@ -37,7 +40,7 @@ env.TF_CPP_MIN_LOG_LEVEL                        = '1'       # 0 (default) = Prin
 # To run, comment/uncomment the lines as appropriate and launch train.py.
 
 desc        = 'pgan'                                        # Description string included in result subdir name.
-random_seed = 1000                                          # Global random seed.
+random_seed = int(time.time())                                          # Global random seed.
 dataset     = EasyDict()                                    # Options for dataset.load_dataset().
 train       = EasyDict(func='train.train_progressive_gan')  # Options for main training func.
 G           = EasyDict(func='networks.G_paper')             # Options for generator network.
