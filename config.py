@@ -52,7 +52,7 @@ grid        = EasyDict(size='ot', layout='random')       # Options for train.set
 # Resume training
 # train.resume_run_id = "001"; train.resume_kimg = 4627.7
 # Snapshot
-train.network_snapshot_ticks = 1
+# train.network_snapshot_ticks = 1
 # Dataset (choose one).
 desc += '-celebahq';            dataset = EasyDict(tfrecord_dir='celebahq-tf', resolution=64); train.mirror_augment = True
 #desc += '-celeba';              dataset = EasyDict(tfrecord_dir='celeba'); train.mirror_augment = True
