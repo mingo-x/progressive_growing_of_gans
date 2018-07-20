@@ -29,8 +29,11 @@ def main():
 
 	for image_name in os.listdir(args.input_dir):
 		image = Image.open(os.path.join(args.input_dir, image_name))
-		image_np = np.array(image.getdata(), np.uint8).reshape(1, image.size[1], image.size[0], 3)
+		image_np = np.array(image.getdata(), np.uint8).reshape(1, image.size[1], image.size[0], 3).astype(np.float32)
 		image_np = image_np.transpose(0, 3, 1, 2)
+		image_np /= 255.
+		image_np *= 2.
+		image_np -= 1.
 #		print(D.input_shapes)
 		# Generate dummy labels (not used by the official networks).
 #		label = np.zeros([image_np.shape[0]] + D.input_shapes[1][1:])
