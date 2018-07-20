@@ -24,7 +24,7 @@ def setup_snapshot_image_grid(G, training_set,
     layout  = 'random'):    # 'random' = grid contents are selected randomly, 'row_per_class' = each row corresponds to one class label.
 
     # Select size.
-    gw = 1; gh = 1
+    gw = 4; gh = 4
     if size == '1080p':
         gw = np.clip(1920 // G.output_shape[3], 3, 32)
         gh = np.clip(1080 // G.output_shape[2], 2, 32)
