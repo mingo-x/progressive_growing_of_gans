@@ -48,8 +48,6 @@ def setup_snapshot_image_grid(G, training_set,
 
     # Generate latents.
     latents = misc.random_latents(gw * gh, G)
-    for tmp in latents[0]:
-        print(tmp)
     return (gw, gh), reals, labels, latents
 
 #----------------------------------------------------------------------------
@@ -268,7 +266,6 @@ def train_progressive_gan(
 
             # Record start time of the next tick.
             tick_start_time = time.time()
-            exit()
 
     # Write final results.
     misc.save_pkl((G, D, Gs), os.path.join(result_subdir, 'network-final.pkl'))
