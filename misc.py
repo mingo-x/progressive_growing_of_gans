@@ -71,8 +71,8 @@ def convert_to_pil_image(image, drange=[0,1]):
     image = np.rint(image).clip(0, 255).astype(np.uint8)
 
     shape = image.shape
-    for i in range(0, shape[0], 8):
-        for j in range(0, shape[1], 8):
+    for i in range(0, shape[0]):
+        for j in range(0, shape[1]):
             print(image[i, j, 0], image[i, j, 1], image[i, j, 2])
 
     format = 'RGB' if image.ndim == 3 else 'L'
