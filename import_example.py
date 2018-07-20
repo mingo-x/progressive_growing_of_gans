@@ -34,7 +34,7 @@ def main():
 
 	for i in range(0, 50, 10):
 		# Generate latent vectors.
-		latents = randomizer.randn(10, *Gs.input_shapes[0][1:]) # 1000 random latents
+		latents = randomizer.randn(10, *Gs.input_shapes[0][1:])
 		# latents = latents[[477, 56, 83, 887, 583, 391, 86, 340, 341, 415]] # hand-picked top-10
 
 		# Generate dummy labels (not used by the official networks).
