@@ -69,6 +69,12 @@ def convert_to_pil_image(image, drange=[0,1]):
 
     image = adjust_dynamic_range(image, drange, [0,255])
     image = np.rint(image).clip(0, 255).astype(np.uint8)
+
+    shape = image.shape
+    for i in range(shape[0]):
+        for j in range(shape[1]):
+            print(image[i, j, 0], image[i, j, 1], image[i, j, 2])
+
     format = 'RGB' if image.ndim == 3 else 'L'
     return PIL.Image.fromarray(image, format)
 
