@@ -235,7 +235,7 @@ def train_progressive_gan(
             print(cur_nimg)
         # Perform maintenance tasks once per tick.
         done = (cur_nimg >= total_kimg * 1000)
-        if cur_nimg >= tick_start_nimg + sched.tick_kimg * 1000 or done or cur_nimg == sched.minibatch:
+        if cur_nimg >= tick_start_nimg + sched.tick_kimg * 1000 or done or cur_tick==0:
             cur_tick += 1
             cur_time = time.time()
             tick_kimg = (cur_nimg - tick_start_nimg) / 1000.0
