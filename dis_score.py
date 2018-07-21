@@ -34,6 +34,9 @@ def main():
 		image_np /= 255.
 		image_np *= 2.
 		image_np -= 1.
+		image_np = image_np.resize((1, 3, image.size[1], 1, image.size[0], 1))
+		image_np = image_np.tile((1, 1, 1, 2, 1, 2))
+		image_np = image_np.resize((1, 3, image.size[1]*2, image.size[0]*2))
 #		print(D.input_shapes)
 		# Generate dummy labels (not used by the official networks).
 #		label = np.zeros([image_np.shape[0]] + D.input_shapes[1][1:])
