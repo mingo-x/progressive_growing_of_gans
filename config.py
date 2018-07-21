@@ -49,6 +49,7 @@ D_loss      = EasyDict(func='loss.D_wgangp_acgan')          # Options for discri
 sched       = EasyDict()                                    # Options for train.TrainingSchedule.
 grid        = EasyDict(size='ot', layout='random')       # Options for train.setup_snapshot_image_grid().
 
+train.save_tf_graph = True
 # Resume training
 # train.resume_run_id = "001"; train.resume_kimg = 4627.7
 # Snapshot
