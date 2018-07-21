@@ -126,8 +126,6 @@ class TrainingSchedule:
         self.D_lrate = D_lrate_dict.get(self.resolution, D_lrate_base)
         self.tick_kimg = tick_kimg_dict.get(self.resolution, tick_kimg_base)
 
-        print(self.lod)
-
 #----------------------------------------------------------------------------
 # Main training script.
 # To run, comment/uncomment appropriate lines in config.py and launch train.py.

@@ -61,6 +61,7 @@ def D_wgangp_acgan(G, D, opt, training_set, minibatch_size, reals, labels,
         mixed_scores_out = tfutil.autosummary('Loss/mixed_scores', mixed_scores_out)
         mixed_loss = opt.apply_loss_scaling(tf.reduce_sum(mixed_scores_out))
         mixed_grads = opt.undo_loss_scaling(fp32(tf.gradients(mixed_loss, [mixed_images_out])[0]))
+        print(mixed_grads.shape)
         mixed_norms = tf.sqrt(tf.reduce_sum(tf.square(mixed_grads), axis=[1,2,3]))
         mixed_norms = tfutil.autosummary('Loss/mixed_norms', mixed_norms)
         gradient_penalty = tf.square(mixed_norms - wgan_target)
