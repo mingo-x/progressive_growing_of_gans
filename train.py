@@ -126,6 +126,8 @@ class TrainingSchedule:
         self.D_lrate = D_lrate_dict.get(self.resolution, D_lrate_base)
         self.tick_kimg = tick_kimg_dict.get(self.resolution, tick_kimg_base)
 
+        print(self.lod)
+
 #----------------------------------------------------------------------------
 # Main training script.
 # To run, comment/uncomment appropriate lines in config.py and launch train.py.
@@ -229,8 +231,8 @@ def train_progressive_gan(
                 cur_nimg += sched.minibatch
             tfutil.run([G_train_op], {lod_in: sched.lod, lrate_in: sched.G_lrate, minibatch_in: sched.minibatch})
 
-        if cur_nimg // 10000 > prev_nimg // 10000:
-            print(cur_nimg)
+        # if cur_nimg // 10000 > prev_nimg // 10000:
+        #     print(cur_nimg)
         # Perform maintenance tasks once per tick.
         done = (cur_nimg >= total_kimg * 1000)
         if cur_nimg >= tick_start_nimg + sched.tick_kimg * 1000 or done or cur_tick==0:
